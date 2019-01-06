@@ -66,11 +66,9 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         guard let inputDevice = AVCaptureDevice.default(for: .video),
             let videoInput = try? AVCaptureDeviceInput(device: inputDevice),
             captureSession.canAddInput(videoInput),
-            captureSession.canAddOutput(photoOutput),
             captureSession.canAddOutput(videoOutput) else { fatalError() }
         
         captureSession.addInput(videoInput)
-        captureSession.addOutput(photoOutput)
         
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
         videoOutput.alwaysDiscardsLateVideoFrames = true
