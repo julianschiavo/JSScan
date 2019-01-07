@@ -27,28 +27,36 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         captureSession = AVCaptureSession()
         
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized: // The user has previously granted access to the camera.
+        if #available(macOS 10.14, *) {
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized: // The user has previously granted access to the camera.
+                setupCaptureSession()
+                
+                if captureSession?.isRunning == false {
+                    captureSession.startRunning()
+                }
+            case .notDetermined: // The user has not yet been asked for camera access.
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    if granted {
+                        self.setupCaptureSession()
+                        
+                        if self.captureSession?.isRunning == false {
+                            self.captureSession.startRunning()
+                        }
+                    }
+                }
+                
+            case .denied: // The user has previously denied access.
+                return
+            case .restricted: // The user can't grant access due to restrictions.
+                return
+            }
+        } else {
             setupCaptureSession()
             
             if captureSession?.isRunning == false {
                 captureSession.startRunning()
             }
-        case .notDetermined: // The user has not yet been asked for camera access.
-            AVCaptureDevice.requestAccess(for: .video) { granted in
-                if granted {
-                    self.setupCaptureSession()
-                    
-                    if self.captureSession?.isRunning == false {
-                        self.captureSession.startRunning()
-                    }
-                }
-            }
-            
-        case .denied: // The user has previously denied access.
-            return
-        case .restricted: // The user can't grant access due to restrictions.
-            return
         }
     }
     
