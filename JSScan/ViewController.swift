@@ -13,16 +13,21 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    let photoOutput = AVCaptureStillImageOutput()
     let videoOutput = AVCaptureVideoDataOutput()
 
+    var previewImageView = NSImageView()
     var previewToolbar = NSView()
     var previewText = NSTextView()
+    
+    var lastFoundText = ""
     
     var qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        setupPreviewImageView()
         setupPreviewToolbar()
         
         captureSession = AVCaptureSession()
@@ -68,17 +73,31 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
     
+    func reloadTextView() {
+        DispatchQueue.main.async {
+            self.previewText.isEditable = true
+            self.previewText.checkTextInDocument(nil)
+            self.previewText.isEditable = false
+        }
+    }
+    
     func setupCaptureSession() {
         captureSession.beginConfiguration()
         
         guard let inputDevice = AVCaptureDevice.default(for: .video),
             let videoInput = try? AVCaptureDeviceInput(device: inputDevice),
             captureSession.canAddInput(videoInput),
+            captureSession.canAddOutput(photoOutput),
             captureSession.canAddOutput(videoOutput) else { fatalError() }
+        
+        captureSession.sessionPreset = .photo
         
         captureSession.addInput(videoInput)
         
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+        photoOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+        captureSession.addOutput(photoOutput)
+        
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
         videoOutput.alwaysDiscardsLateVideoFrames = true
         captureSession.addOutput(videoOutput)
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "output.queue"))
@@ -92,6 +111,22 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         previewLayer.frame = view.layer!.bounds
         view.layer?.addSublayer(previewLayer)
     }
+    
+    /* Very hard to get a stable image
+    func setupPreviewImageView() {
+        previewImageView.isHidden = true
+        previewImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(previewImageView)
+        
+        previewImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        previewImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        previewImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        previewImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        previewImageView.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        previewImageView.heightAnchor.constraint(equalTo: previewImageView.widthAnchor).isActive = true
+    }*/
     
     func setupPreviewToolbar() {
         previewToolbar.layer = CALayer()
@@ -138,6 +173,30 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         previewText.bottomAnchor.constraint(equalTo: previewToolbar.bottomAnchor, constant: -10).isActive = true
     }
     
+    /* Very hard to get a stable image
+    func captureStill(qrCodeLocation: Quadrilateral) {
+        guard let connection = photoOutput.connection(with: .video) else {//, connection.isEnabled, connection.isActive else {
+            fatalError()
+        }
+        
+        photoOutput.captureStillImageAsynchronously(from: connection) { (buffer, error) in
+            guard let buffer = buffer,
+                error == nil,
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer),
+                let image = NSImage(data: imageData),
+                let directory = NSSearchPathForDirectoriesInDomains(.downloadsDirectory, .userDomainMask, true).first else { fatalError() }
+     
+            DispatchQueue.main.async {
+                self.previewImageView.image = image.croppedToQuad(qrCodeLocation)
+                self.previewImageView.isHidden = false
+            }
+            self.captureSession.stopRunning()
+        }
+    }*/
+    
+    
+    // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
@@ -155,14 +214,19 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func foundQRCode(feature: CIQRCodeFeature) {
-        guard let value = feature.messageString else { return }
+        guard let value = feature.messageString,
+            lastFoundText != value else { return }
+        
+        lastFoundText = value
+        
+        if let url = URL(string: value) {
+            NSWorkspace.shared.open(url)
+        }
         
         DispatchQueue.main.async {
             // Set the value (on the MAIN queue) and check for links
             self.previewText.string = value
-            self.previewText.isEditable = true
-            self.previewText.checkTextInDocument(nil)
-            self.previewText.isEditable = false
+            self.reloadTextView()
         }
         
         print(value)

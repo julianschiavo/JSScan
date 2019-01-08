@@ -11,6 +11,11 @@
 		B9611EA321E218E8000AB105 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9611EA221E218E8000AB105 /* ViewController.swift */; };
 		B9611EA521E218E9000AB105 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9611EA421E218E9000AB105 /* Assets.xcassets */; };
 		B9611EA821E218E9000AB105 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9611EA621E218E9000AB105 /* Main.storyboard */; };
+		B9611EB321E323B5000AB105 /* NSImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9611EB221E323B5000AB105 /* NSImage+Utils.swift */; };
+		B9611EB721E33B83000AB105 /* Quadrilateral.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9611EB621E33B83000AB105 /* Quadrilateral.swift */; };
+		B9611EB921E33BFD000AB105 /* CGPoint+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9611EB821E33BFD000AB105 /* CGPoint+Utils.swift */; };
+		B9611EBC21E33C80000AB105 /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9611EBB21E33C80000AB105 /* Transformable.swift */; };
+		B9611EBE21E33CBC000AB105 /* CGAffineTransform+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9611EBD21E33CBC000AB105 /* CGAffineTransform+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +26,11 @@
 		B9611EA721E218E9000AB105 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B9611EA921E218E9000AB105 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9611EAA21E218E9000AB105 /* JSScan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSScan.entitlements; sourceTree = "<group>"; };
+		B9611EB221E323B5000AB105 /* NSImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Utils.swift"; sourceTree = "<group>"; };
+		B9611EB621E33B83000AB105 /* Quadrilateral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrilateral.swift; sourceTree = "<group>"; };
+		B9611EB821E33BFD000AB105 /* CGPoint+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Utils.swift"; sourceTree = "<group>"; };
+		B9611EBB21E33C80000AB105 /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
+		B9611EBD21E33CBC000AB105 /* CGAffineTransform+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGAffineTransform+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +65,25 @@
 			children = (
 				B9611EA021E218E8000AB105 /* AppDelegate.swift */,
 				B9611EA221E218E8000AB105 /* ViewController.swift */,
+				B9611EBA21E33C73000AB105 /* Utilities */,
 				B9611EA421E218E9000AB105 /* Assets.xcassets */,
 				B9611EA621E218E9000AB105 /* Main.storyboard */,
 				B9611EA921E218E9000AB105 /* Info.plist */,
 				B9611EAA21E218E9000AB105 /* JSScan.entitlements */,
 			);
 			path = JSScan;
+			sourceTree = "<group>";
+		};
+		B9611EBA21E33C73000AB105 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B9611EBB21E33C80000AB105 /* Transformable.swift */,
+				B9611EB621E33B83000AB105 /* Quadrilateral.swift */,
+				B9611EB821E33BFD000AB105 /* CGPoint+Utils.swift */,
+				B9611EB221E323B5000AB105 /* NSImage+Utils.swift */,
+				B9611EBD21E33CBC000AB105 /* CGAffineTransform+Utils.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9611EB321E323B5000AB105 /* NSImage+Utils.swift in Sources */,
 				B9611EA321E218E8000AB105 /* ViewController.swift in Sources */,
+				B9611EB921E33BFD000AB105 /* CGPoint+Utils.swift in Sources */,
 				B9611EA121E218E8000AB105 /* AppDelegate.swift in Sources */,
+				B9611EBC21E33C80000AB105 /* Transformable.swift in Sources */,
+				B9611EB721E33B83000AB105 /* Quadrilateral.swift in Sources */,
+				B9611EBE21E33CBC000AB105 /* CGAffineTransform+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
