@@ -10,7 +10,7 @@ JSScan is a macOS app that quickly scan QR codes from the camera, then either op
 
 ## Running
 
-You can either download the pre-built app from [Releases](/releases) or build JSScan yourself. If you encounter any issues that aren't solvable, feel free to create an [issue](#contributing).
+You can either download the pre-built app from [Releases](https://github.com/justjs/jsscan/releases) or build JSScan yourself. If you encounter any issues that aren't solvable, feel free to create an [issue](#contributing).
 
 ## Contributing
 
