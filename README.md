@@ -6,11 +6,11 @@
         <img src="https://img.shields.io/badge/Contact-@justjs_dev-lightgrey.svg?style=flat" alt="Twitter: @justjs_dev" />
     </a>
 </p>
-JSScan is a small macOS app/utility to quickly scan QR codes from the camera, after which the link or text is displayed below the camera feed.
+JSScan is a macOS app that quickly scan QR codes from the camera, then either opens the link in the web browser (typically Safari) or displays the extracted text.
 
 ## Running
 
-You can either download the pre-built app from [Releases](releases) or build JSScan yourself. If you encounter any issues that aren't solvable, feel free to create an [issue](#contributing).
+You can either download the pre-built app from [Releases](/releases) or build JSScan yourself. If you encounter any issues that aren't solvable, feel free to create an [issue](#contributing).
 
 ## Contributing
 
@@ -23,3 +23,5 @@ JSScan is available under the MIT license. Please credit JSScan for any code use
 ## Credits
 
 JSScan was designed and built by me, Julian Schiavo. The JSScan logo (will be) Copyright © Julian Schiavo 2018.
+
+Some code used in JSScan is used under the MIT License from the [WeScan](https://github.com/wetransfer/wescan) project by [WeTransfer](https://wetransfer.com).
