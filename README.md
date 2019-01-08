@@ -7,7 +7,7 @@
     </a>
 </p>
 
-<img src="demo.png" align="left" />JSScan is a macOS app that quickly scan QR codes from the camera, then either opens the link in the web browser (typically Safari) or displays the extracted text.
+<img src="demo.png" align="left" width="200" />JSScan is a macOS app that quickly scan QR codes from the camera, then either opens the link in the web browser (typically Safari) or displays the extracted text.
 
 ## Running
 
