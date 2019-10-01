@@ -51,9 +51,9 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
                     }
                 }
                 
-            case .denied: // The user has previously denied access.
+            case .denied, .restricted:
                 return
-            case .restricted: // The user can't grant access due to restrictions.
+            @unknown default:
                 return
             }
         } else {

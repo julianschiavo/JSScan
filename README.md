@@ -1,7 +1,7 @@
 # JSScan
 <p>
     <img src="https://img.shields.io/badge/macOS-10.12+-blue.svg" />
-    <img src="https://img.shields.io/badge/Swift-4.2-brightgreen.svg" />
+    <img src="https://img.shields.io/badge/Swift-5.0-brightgreen.svg" />
     <a href="https://twitter.com/justjs_dev">
         <img src="https://img.shields.io/badge/Contact-@justjs_dev-lightgrey.svg?style=flat" alt="Twitter: @justjs_dev" />
     </a>
@@ -23,6 +23,6 @@ JSScan is available under the MIT license. Please credit JSScan for any code use
 
 ## Credits
 
-JSScan was designed and built by me, Julian Schiavo. The JSScan logo (will be) Copyright © Julian Schiavo 2018.
+JSScan was designed and built by me, Julian Schiavo. The JSScan logo (will be) Copyright © Julian Schiavo 2018-2019.
 
 Some code used in JSScan is used under the MIT License from the [WeScan](https://github.com/wetransfer/wescan) project by [WeTransfer](https://wetransfer.com).
